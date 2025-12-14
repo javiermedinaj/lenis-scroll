@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import  { useEffect } from 'react';
 import { Hero } from './components/Hero';
 import { Caption } from './components/Caption';
 import { Grid } from './components/Grid';
@@ -16,7 +16,7 @@ const App = () => {
     const initLenis = () => {
       lenis = new Lenis({
         lerp: 0.05,
-        infinite: true,
+        infinite: false,
       });
 
       lenis.on('scroll', ScrollTrigger.update);
@@ -25,16 +25,16 @@ const App = () => {
       gsap.ticker.lagSmoothing(0);
     };
 
-    const cloneForInfinity = () => {
-      const main = document.querySelector('main');
-      const section = document.createElement('section');
-      section.classList.add('section-forInfinity');
-      section.style.height = '100vh';
+    // const cloneForInfinity = () => {
+    //   const main = document.querySelector('main');
+    //   const section = document.createElement('section');
+    //   section.classList.add('section-forInfinity');
+    //   section.style.height = '100vh';
 
-      const clone = document.querySelector('.hero').cloneNode(true);
-      section.appendChild(clone);
-      main.appendChild(section);
-    };
+    //   const clone = document.querySelector('.hero').cloneNode(true);
+    //   section.appendChild(clone);
+    //   main.appendChild(section);
+    // };
 
     const animateCaption = () => {
       const caption = {
@@ -91,10 +91,12 @@ const App = () => {
 
     const initAnimations = () => {
       initLenis();
-      cloneForInfinity();
       animateCaption();
       animateGrid();
       lenis.scrollTo(0);
+      
+      // Exponer Lenis globalmente para que el Footer pueda usarlo
+      window.lenisInstance = lenis;
     };
 
     // Ensure the DOM is fully loaded before initializing animations
