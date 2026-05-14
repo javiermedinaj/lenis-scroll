@@ -1,4 +1,4 @@
-import  { useEffect } from 'react';
+import  { useEffect, useRef } from 'react';
 import { Hero } from './components/Hero';
 import { Caption } from './components/Caption';
 import { Grid } from './components/Grid';
@@ -8,20 +8,28 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 
 const App = () => {
+  const lenisRef = useRef(null);
+
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    let lenis;
-
     const initLenis = () => {
-      lenis = new Lenis({
+      lenisRef.current = new Lenis({
         lerp: 0.05,
         infinite: false,
+        scrollX: false,
       });
 
-      lenis.on('scroll', ScrollTrigger.update);
+      lenisRef.current.on('scroll', ({ progress, limit, velocity }) => {
+        ScrollTrigger.update();
 
-      gsap.ticker.add((time) => lenis.raf(time * 1000));
+        if (progress > 0.99 && velocity >= 0) {
+          lenisRef.current.velocity = 0;
+          lenisRef.current.scrollTo(limit, { immediate: true });
+        }
+      });
+
+      gsap.ticker.add((time) => lenisRef.current.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
     };
 
@@ -93,13 +101,11 @@ const App = () => {
       initLenis();
       animateCaption();
       animateGrid();
-      lenis.scrollTo(0);
-      
-      // Exponer Lenis globalmente para que el Footer pueda usarlo
-      window.lenisInstance = lenis;
+      lenisRef.current.scrollTo(0);
+
+      window.lenisInstance = lenisRef.current;
     };
 
-    // Ensure the DOM is fully loaded before initializing animations
     if (document.readyState === 'complete') {
       initAnimations();
     } else {
@@ -108,6 +114,9 @@ const App = () => {
 
     return () => {
       window.removeEventListener('load', initAnimations);
+      if (lenisRef.current) {
+        lenisRef.current.destroy();
+      }
     };
   }, []);
 
