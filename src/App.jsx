@@ -2,7 +2,6 @@ import  { useEffect, useRef } from 'react';
 import { Hero } from './components/Hero';
 import { Caption } from './components/Caption';
 import { Grid } from './components/Grid';
-import { CenteredImage } from './components/CenteredImage';
 import { Ending } from './components/Ending';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -62,7 +61,7 @@ const App = () => {
           end: '+=3000 bottom',
           scrub: true,
           pin: true,
-          pinSpacing: true,
+          pinSpacing: false,
         },
       });
 
@@ -98,32 +97,9 @@ const App = () => {
         .to(grid.wrapper, { scale: 3.2 }, 0.5);
     };
 
-    const animateCenteredImage = () => {
-      const section = document.querySelector('.centered-image');
-      const image = document.querySelector('.centered-image_img');
-      if (!section || !image) return;
-
-      gsap.fromTo(
-        image,
-        { scale: 1.12, yPercent: 4 },
-        {
-          scale: 1,
-          yPercent: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: true,
-          },
-        },
-      );
-    };
-
     const initAnimations = () => {
       initLenis();
       animateCaption();
-      animateCenteredImage();
       animateGrid();
       lenisRef.current.scrollTo(0);
 
@@ -148,7 +124,6 @@ const App = () => {
     <main>
       <Hero />
       <Caption />
-      <CenteredImage />
       <Grid />
       <Ending />
     </main>

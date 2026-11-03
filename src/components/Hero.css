@@ -43,25 +43,19 @@
 }
 
 .hero_content_title {
+  font-size: 1em;
+  font-weight: bold;
   margin: 1rem 0;
   text-transform: uppercase;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-.hero_content_title h1 {
-  font-family: 'Bricolage Grotesque', sans-serif;
-  font-size: clamp(7rem, 12vw, 15rem);
-  font-weight: 500;
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-}
-
 .hero_content_description {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-size: 1.7rem;
-  max-width: 70rem;
-  line-height: 1.6;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 1.6rem;
+  max-width: 90rem;
+  line-height: 1.5;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); 
+  
 }
 
 @media (max-width: 768px) {
