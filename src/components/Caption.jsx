@@ -1,4 +1,3 @@
-import React from 'react';
 import './Caption.css';
 
 export const Caption = () => (
@@ -6,11 +5,11 @@ export const Caption = () => (
     <div className="caption_wrapper">
       <div className="caption_content">
         <div className="caption_content_title">
-          <span className="caption_content_title_text">"Unlock</span>
+          <span className="caption_content_title_text">&ldquo;Unlock</span>
           <span className="caption_content_title_text">Brand</span>
           <span className="caption_content_title_text">Success</span>
           <span className="caption_content_title_text">With</span>
-          <span className="caption_content_title_text">Us"</span>  
+          <span className="caption_content_title_text">Us&rdquo;</span>  
         </div>
       </div>
       <div className="caption_background"></div>
